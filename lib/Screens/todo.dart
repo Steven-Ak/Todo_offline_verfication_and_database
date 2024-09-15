@@ -37,10 +37,15 @@ class _TodoScreenState extends State<TodoScreen> {
   }
   void saveTask(){
     setState(() {
-      db.todos.add([_taskController.text, false]);
-      Navigator.of(context).pop();
-      _taskController.clear();
-      db.updateData();
+      if(_taskController.text != ''){
+        db.todos.add([_taskController.text, false]);
+        Navigator.of(context).pop();
+        _taskController.clear();
+        db.updateData();
+      }
+      else{
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Task cant be empty!")));
+      }
     });
   }
   void createTask(){
